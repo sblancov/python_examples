@@ -1,15 +1,23 @@
 import smtplib, ssl
 
 
-def main():
+def config_server():
     port = 1025
-    server = 'localhost'
-    context = ssl.create_default_context()
+    host = 'localhost'
+    server = smtplib.SMTP(host, port)
+    return server
+
+
+def send_email(server):
     sender_email = "just_me"
     receiver_email = "cool_receiver"
     message = "This is the cool message, it rocks."
-    email_server = smtplib.SMTP(server, port)
-    email_server.sendmail(sender_email, receiver_email, message)
+    server.sendmail(sender_email, receiver_email, message)
+
+
+def main():
+    server = config_server()
+    send_email(server)
 
 
 if __name__ == "__main__":
